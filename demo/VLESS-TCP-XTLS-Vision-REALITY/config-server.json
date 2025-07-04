@@ -1,0 +1,38 @@
+{
+    "port": 443,
+    "protocol": "vless",
+    "settings": {
+        "clients": [
+            {
+                "id": "e7e24363-c59a-4857-8c3a-cbf43037cf55",
+                "email": "vless_tcp_xtls_reality@admin.com",
+                "flow": "xtls-rprx-vision"
+            }
+        ],
+        "decryption": "none"
+    },
+    "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+            "dest": "www.cloudflare.com:443",
+            "serverNames": [
+                "www.cloudflare.com"
+            ],
+            "privateKey": "0Iom78LeEcXecpxdLSkfhi9UMbRbHyfxExhhQW1GLHs",
+            "shortIds": [
+                "",
+                "0123456789abcdef"
+            ]
+        }
+    },
+    "sniffing": {
+        "enabled": true,
+        "destOverride": [
+            "http",
+            "tls",
+            "quic"
+        ],
+        "routeOnly": true
+    }
+}

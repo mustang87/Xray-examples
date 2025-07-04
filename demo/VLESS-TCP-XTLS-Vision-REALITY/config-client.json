@@ -1,0 +1,30 @@
+{
+    "protocol": "vless",
+    "settings": {
+        "vnext": [
+            {
+                "address": "go.minitang.cn",
+                "port": 443,
+                "users": [
+                    {
+                        "id": "e7e24363-c59a-4857-8c3a-cbf43037cf55", // Needs to match server side
+                        "encryption": "none",
+                        "flow": "xtls-rprx-vision"
+                    }
+                ]
+            }
+        ]
+    },
+    "streamSettings": {
+        "network": "tcp",
+        "security": "reality",
+        "realitySettings": {
+            "fingerprint": "chrome",
+            "serverName": "www.cloudflare.com", // A website that support TLS1.3 and h2. If your dest is `1.1.1.1:443`, then leave it empty
+            "publicKey": "7Z3sxez54Rc9JnIKNp2kH0JJwL6EjKrNFIDJXIaCAzE", // run `xray x25519` to generate. Public and private keys need to be corresponding.
+            "spiderX": "", // If your dest is `1.1.1.1:443`, then you can fill it with `/dns-query/` or just leave it empty
+            "shortId": "0123456789abcdef" // Required
+        }
+    },
+    "tag": "proxy"
+}

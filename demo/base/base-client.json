@@ -1,0 +1,55 @@
+{
+    "log": {
+        "loglevel": "debug",
+        "access": "access.log",
+        "error": "error.log"
+    },
+    "inbounds": [
+        {
+            "port": 10808,
+            "listen": "127.0.0.1",
+            "protocol": "socks",
+            "settings": {
+                "auth": "noauth",
+                "udp": true
+            },
+            "tag": "socks-in"
+        },
+        {
+            "port": 20808,
+            "listen": "127.0.0.1",
+            "protocol": "http",
+            "settings": {}
+        }
+    ],
+    "outbounds": [
+        {
+            "desc": "此处放入各种协议类型的include"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "type": "field",
+                "domain": [
+                    "geosite:cn",
+                    "minitang.cn"
+                ],
+                "outboundTag": "direct"
+            },
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:private",
+                    "geoip:cn"
+                ],
+                "outboundTag": "direct"
+            }
+        ]
+    }
+}

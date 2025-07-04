@@ -1,0 +1,75 @@
+{
+    "api": {
+        "tag": "api",
+        "services": [
+            "HandlerService",
+            "LoggerService",
+            "StatsService"
+        ]
+    },
+    "stats": {},
+    "log": {
+        "access": "/data/xray/logs/access.log",
+        "error": "/data/xray/logs/error.log",
+        "loglevel": "debug"
+    },
+    "policy": {
+        "levels": {
+            "0": {
+                "statsUserUplink": true,
+                "statsUserDownlink": true
+            }
+        },
+        "system": {
+            "statsInboundUplink": true,
+            "statsInboundDownlink": true,
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+        }
+    },
+    "inbounds": [
+        {
+            "desc": "此处放入各种协议类型的include"
+        },
+        {
+            "tag": "api",
+            "port": 20085,
+            "protocol": "dokodemo-door",
+            "listen": "127.0.0.1",
+            "settings": {
+                "address": "127.0.0.1",
+                "followRedirect": false
+            },
+            "streamSettings": {
+                "security": "none",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "blocked"
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "inboundTag": [
+                    "api"
+                ],
+                "outboundTag": "api",
+                "type": "field"
+            }
+        ],
+        "domainStrategy": "AsIs"
+    }
+}
