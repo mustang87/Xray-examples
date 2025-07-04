@@ -28,30 +28,31 @@
             "settings": {
                 "vnext": [
                     {
-                        "address": "go.minitang.cn",
-                        "port": 443,
+                        "address": "www.myaccelerator.vip",
+                        "port": 8443,
                         "users": [
                             {
-                                "id": "e7e24363-c59a-4857-8c3a-cbf43037cf55",
-                                "encryption": "none",
-                                "flow": "xtls-rprx-vision"
+                                "id": "c174603c-3e36-47d0-84ab-6eb2b39d9189",
+                                "encryption": "none"
                             }
                         ]
                     }
                 ]
             },
             "streamSettings": {
-                "network": "tcp",
-                "security": "reality",
-                "realitySettings": {
-                    "fingerprint": "chrome",
-                    "serverName": "www.cloudflare.com",
-                    "publicKey": "7Z3sxez54Rc9JnIKNp2kH0JJwL6EjKrNFIDJXIaCAzE",
-                    "spiderX": "",
-                    "shortId": "0123456789abcdef"
+                "network": "ws",
+                "security": "tls",
+                "wsSettings": {
+                    "path": "/cr659r90",
+                    "headers": {
+                        "Host": "www.myaccelerator.vip"
+                    }
+                },
+                "tlsSettings": {
+                    "serverName": "www.myaccelerator.vip",
+                    "allowInsecure": false
                 }
-            },
-            "tag": "proxy"
+            }
         },
         {
             "protocol": "freedom",
@@ -59,16 +60,8 @@
         }
     ],
     "routing": {
-        "domainStrategy": "AsIs",
+        "domainStrategy": "IPOnDemand",
         "rules": [
-            {
-                "type": "field",
-                "domain": [
-                    "geosite:cn",
-                    "minitang.cn"
-                ],
-                "outboundTag": "direct"
-            },
             {
                 "type": "field",
                 "ip": [

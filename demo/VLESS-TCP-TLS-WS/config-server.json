@@ -1,0 +1,154 @@
+{
+    "api": {
+        "services": [
+            "HandlerService",
+            "LoggerService",
+            "StatsService",
+            "RoutingService"
+        ],
+        "tag": "api-gateway"
+    },
+    "log": {
+        "access": "/data/xray/logs/access.log",
+        "error": "/data/xray/logs/error.log",
+        "loglevel": "debug"
+    },
+    "stats": {},
+    "policy": {
+        "levels": {
+            "0": {
+                "handshake": 4,
+                "connIdle": 300,
+                "uplinkOnly": 2,
+                "downlinkOnly": 5,
+                "statsUserUplink": true,
+                "statsUserDownlink": true
+            }
+        },
+        "system": {
+            "statsInboundUplink": true,
+            "statsInboundDownlink": true,
+            "statsOutboundUplink": true,
+            "statsOutboundDownlink": true
+        }
+    },
+    "inbounds": [
+        {
+            "tag": "api",
+            "port": 20085,
+            "protocol": "dokodemo-door",
+            "listen": "0.0.0.0",
+            "settings": {
+                "address": "127.0.0.1",
+                "followRedirect": false
+            },
+            "streamSettings": {
+                "security": "none",
+                "tcpSettings": {
+                    "header": {
+                        "type": "none"
+                    }
+                }
+            }
+        },
+        {
+            "port": 8443,
+            "protocol": "vless",
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls"
+                ]
+            },
+            "settings": {
+                "clients": [
+                    {
+                        "id": "c174603c-3e36-47d0-84ab-6eb2b39d9189",
+                        "email": "bryan@admin.com"
+                    },
+                    {
+                        "id": "e59622b7-3783-47d6-882e-4b82d941fe26",
+                        "email": "lei@admin.com"
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "tls",
+                "tlsSettings": {
+                    "certificates": [
+                        {
+                            "certificateFile": "/usr/local/nginx/cert/www.myaccelerator.vip/www.myaccelerator.vip.pem",
+                            "keyFile": "/usr/local/nginx/cert/www.myaccelerator.vip/www.myaccelerator.vip.key"
+                        }
+                    ]
+                },
+                "wsSettings": {
+                    "path": "/cr659r90",
+                    "host": "www.myaccelerator.vip"
+                }
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        }
+    ],
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "rules": [
+            {
+                "type": "field",
+                "domain": [
+                    "geosite:cn"
+                ],
+                "outboundTag": "direct"
+            },
+            {
+                "type": "field",
+                "ip": [
+                    "geoip:cn",
+                    "geoip:private"
+                ],
+                "outboundTag": "direct"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "api"
+                ],
+                "outboundTag": "api-gateway"
+            },
+            {
+                "type": "field",
+                "domain": [
+                    "geosite:category-ads-all"
+                ],
+                "outboundTag": "block"
+            },
+            {
+                "type": "field",
+                "domain": [
+                    "domain:ninecommentaries.com",
+                    "domain:theepochtimes.com"
+                ],
+                "outboundTag": "block"
+            },
+            {
+                "type": "field",
+                "protocol": [
+                    "bittorrent"
+                ],
+                "outboundTag": "block"
+            }
+        ]
+    }
+}

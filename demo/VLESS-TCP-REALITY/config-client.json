@@ -24,6 +24,7 @@
     ],
     "outbounds": [
         {
+            "tag": "vless_tcp_reality",
             "protocol": "vless",
             "settings": {
                 "vnext": [
@@ -32,9 +33,8 @@
                         "port": 443,
                         "users": [
                             {
-                                "id": "e7e24363-c59a-4857-8c3a-cbf43037cf55",
-                                "encryption": "none",
-                                "flow": "xtls-rprx-vision"
+                                "id": "b7653df2-5580-41a3-82ee-0a4bbd2daf25",
+                                "encryption": "none"
                             }
                         ]
                     }
@@ -44,14 +44,12 @@
                 "network": "tcp",
                 "security": "reality",
                 "realitySettings": {
-                    "fingerprint": "chrome",
                     "serverName": "www.cloudflare.com",
-                    "publicKey": "7Z3sxez54Rc9JnIKNp2kH0JJwL6EjKrNFIDJXIaCAzE",
-                    "spiderX": "",
-                    "shortId": "0123456789abcdef"
+                    "publicKey": "Wi9GSQGoDWH7zkpA392Oh3runzbRSW6zDVvZYF1uSUc",
+                    "shortId": "abcdef12",
+                    "fingerprint": "chrome"
                 }
-            },
-            "tag": "proxy"
+            }
         },
         {
             "protocol": "freedom",
